@@ -1,113 +1,523 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="zh-CN">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>范之宇的个人网站</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-  <style>
-    body {
-      background: linear-gradient(to right, #e0f7fa, #f1f8e9);
-    }
-  </style>
-  <script>
-    function goTo(sectionId) {
-      document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
-    }
-    function downloadResume(file, filename) {
-      const link = document.createElement('a');
-      link.href = file;
-      link.download = filename;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-    }
-  </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>One Year Anniversary</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #1a1a2e;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* 动态背景粒子 */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            animation: float 15s infinite;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0) translateX(0);
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 1;
+            }
+
+            90% {
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(-100vh) translateX(100px);
+                opacity: 0;
+            }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 60px;
+            animation: fadeInDown 1s ease;
+        }
+
+        .header h1 {
+            font-size: 3.5em;
+            margin-bottom: 15px;
+            background: linear-gradient(45deg, #ff6b6b, #feca57, #48dbfb, #ff9ff3);
+            background-size: 300% 300%;
+            -webkit-text-fill-color: transparent;
+            animation: gradientShift 3s ease infinite;
+        }
+
+        .header p {
+            font-size: 1.3em;
+            opacity: 0.9;
+            color: #feca57;
+        }
+
+        @keyframes gradientShift {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .timeline {
+            position: relative;
+            padding: 20px 0;
+        }
+
+        .memory-card {
+            display: flex;
+            align-items: center;
+            margin-bottom: 80px;
+            opacity: 0;
+            animation: slideIn 0.8s ease forwards;
+        }
+
+        .memory-csssadard:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .memory-card:nth-child(1) {
+            animation-delay: 0.2s;
+        }
+
+        .memory-card:nth-child(2) {
+            animation-delay: 0.4s;
+        }
+
+        .memory-card:nth-child(3) {
+            animation-delay: 0.6s;
+        }
+
+        .memory-card:nth-child(4) {
+            animation-delay: 0.8s;
+        }
+
+        .memory-card:nth-child(5) {
+            animation-delay: 1s;
+        }
+
+        .memory-card:nth-child(6) {
+            animation-delay: 1.2s;
+        }
+
+        .memory-content {
+            flex: 1;
+            padding: 0 40px;
+        }
+
+        .date-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-size: 0.95em;
+            margin-bottom: 15px;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .memory-text {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .memory-text:hover {
+            transform: translateY(-8px);
+            border-color: #feca57;
+            box-shadow: 0 20px 50px rgba(254, 202, 87, 0.3);
+        }
+
+        .memory-text h3 {
+            color: #2d3436;
+            margin-bottom: 12px;
+            font-size: 1.6em;
+        }
+
+        .memory-text h3::before {
+            content: '✨ ';
+            font-size: 0.9em;
+        }
+
+        .memory-text p {
+            color: #636e72;
+            line-height: 1.8;
+            font-size: 1.05em;
+        }
+
+        .photo-placeholder {
+            width: 320px;
+            height: 320px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.1em;
+            text-align: center;
+            padding: 20px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            font-weight: 500;
+        }
+
+        .photo-placeholder::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: inherit;
+            filter: blur(0);
+            transition: filter 0.4s ease;
+        }
+
+        .photo-placeholder:hover {
+            transform: scale(1.08) rotate(2deg);
+        }
+
+        .photo-placeholder:hover::before {
+            filter: blur(5px);
+        }
+
+        .photo-text {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* 不同的背景主题 */
+        .bg-gradient-1 {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        .bg-gradient-2 {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+
+        .bg-gradient-3 {
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+        }
+
+        .bg-gradient-4 {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+        }
+
+        .bg-gradient-5 {
+            background: linear-gradient(135deg, #30cfd0 0%, #330867 100%);
+        }
+
+        .bg-gradient-6 {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+        }
+
+        .emoji-decoration {
+            font-size: 3em;
+            position: absolute;
+            opacity: 0.2;
+        }
+
+        .footer {
+            text-align: center;
+            color: white;
+            margin-top: 80px;
+            padding: 40px;
+            animation: fadeIn 2s ease;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+        }
+
+        .footer h2 {
+            font-size: 2.2em;
+            margin-bottom: 20px;
+            color: #feca57;
+        }
+
+        .footer p {
+            font-size: 1.2em;
+            line-height: 1.8;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #ff6b6b;
+        }
+
+        .stat-label {
+            font-size: 1em;
+            color: #dfe6e9;
+            margin-top: 5px;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.2em;
+            }
+
+            .memory-card,
+            .memory-card:nth-child(even) {
+                flex-direction: column;
+            }
+
+            .memory-content {
+                padding: 20px 0;
+            }
+
+            .photo-placeholder {
+                width: 100%;
+                max-width: 320px;
+                height: 280px;
+            }
+
+            .stats {
+                gap: 20px;
+            }
+        }
+    </style>
 </head>
 
-<body class="text-gray-800 font-sans">
-  <div class="max-w-5xl mx-auto py-10 px-6">
-    <header class="text-center mb-10">
-      <h1 class="text-5xl font-extrabold mb-2">范之宇</h1>
-      <p class="text-lg text-gray-600">测试工程师 | Shanghai, China</p>
-      <p class="text-sm text-gray-500 mt-2">
-        电话: 13761468757 • 邮箱: <a href="mailto:monkdy.d.fzy@gmail.com"
-          class="text-blue-600">monkdy.d.fzy@gmail.com</a><br>
-        LinkedIn: <a href="https://www.linkedin.com/in/之宇-范-1302b62aa/" class="text-blue-600"
-          target="_blank">linkedin.com/in/之宇-范</a><br>
-        Bilibili: <a href="https://space.bilibili.com/4064444" class="text-blue-600" target="_blank">@frankfan</a> |
-        YouTube: <a href="https://www.youtube.com/@frankfan5839" class="text-blue-600" target="_blank">@frankfan5839</a>
-        个人自动化开源项目 <a href="https://github.com/zf64811/Kong-cypress" class="text-blue-600"
-          target="_blank">https://github.com/zf64811/Kong-cypress</a>
-        <a href="https://github.com/zf64811/behaveAPI" class="text-blue-600" target="_blank">
-          https://github.com/zf64811/behaveAPI </a>
+<body>
+    <!-- 动态背景粒子 -->
+    <div class="particles" id="particles"></div>
 
+    <div class="container">
+        <div class="header">
+            <h1>Adventures Together</h1>
+            <p>Thanks for choosing to be my girlfriend in all these adventures!</p>
+        </div>
 
-      </p>
-      <div class="mt-4 flex flex-col sm:flex-row justify-center gap-4">
-        <button onclick="downloadResume('范之宇简历.pdf', '范之宇简历.pdf')"
-          class="bg-blue-600 text-white px-4 py-2 rounded shadow hover:bg-blue-700">
-          下载中文简历 PDF
-        </button>
-        <button onclick="downloadResume('frankresume.pdf', 'Frank_Fan_Resume.pdf')"
-          class="bg-green-600 text-white px-4 py-2 rounded shadow hover:bg-green-700">
-          Download English Resume (PDF)
-        </button>
-      </div>
-      <nav class="mt-6 flex justify-center space-x-4 text-sm">
-        <button onclick="goTo('skills')" class="text-blue-600 hover:underline">技术标签</button>
-        <button onclick="goTo('experience')" class="text-blue-600 hover:underline">项目经历</button>
-        <button onclick="goTo('work')" class="text-blue-600 hover:underline">工作经历</button>
-        <button onclick="goTo('education')" class="text-blue-600 hover:underline">教育背景</button>
-      </nav>
-    </header>
+        <div class="timeline">
+            <div class="memory-card">
+                <div class="memory-content">
+                    <!-- <span class="date-badge">2024年1月 · 第1天</span> -->
+                    <div class="memory-text">
+                        <h3>一起去迪士尼</h3>
+                        <p>Go to Disney Land together</p>
+                    </div>
+                </div>
+                <div class="photo-placeholder bg-gradient-1">
+                    <span class="emoji-decoration" style="top: 10px; left: 10px;">🎉</span>
+                    <span class="emoji-decoration" style="bottom: 10px; right: 10px;">✨</span>
+                    <div style="position: relative; width: 320px; height: 320px;">
+                        <img src="images/disney.jpg"
+                            style="width: 100%; height: 100%; border-radius: 20px; object-fit: cover; box-shadow: 0 15px 40px rgba(0,0,0,0.4);">
+                    </div>
+                </div>
+            </div>
 
-    <section id="skills" class="mb-10">
-      <h2 class="text-2xl font-bold mb-4">技术标签</h2>
-      <div class="flex flex-wrap gap-2">
-        <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded">Playwright</span>
-        <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded">Cypress</span>
-        <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded">Selenium</span>
-        <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded">Behave</span>
-        <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded">Python</span>
-        <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded">JavaScript</span>
-        <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded">Appium</span>
-        <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded">WebDriverIO</span>
-        <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded">Github Acion</span>
-        <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded">MySQL</span>
-        <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded">Oracle</span>
-      </div>
-    </section>
+            <div class="memory-card">
+                <div class="memory-content">
+                    <!-- <span class="date-badge">2024年3月 · 美食探险</span> -->
+                    <div class="memory-text">
+                        <h3>吃各种好吃的</h3>
+                        <p>Hot Pot Together</p>
+                    </div>
+                </div>
+                <div class="photo-placeholder bg-gradient-2">
+                    <span class="emoji-decoration" style="top: 15px; right: 15px;">🍕</span>
+                    <span class="emoji-decoration" style="bottom: 15px; left: 15px;">🍰</span>
+                    <div style="position: relative; width: 320px; height: 320px;">
+                        <img src="images/food.jpg"
+                            style="width: 100%; height: 100%; border-radius: 20px; object-fit: cover; box-shadow: 0 15px 40px rgba(0,0,0,0.4);">
+                    </div>
+                </div>
+            </div>
 
-    <section id="experience" class="mb-10">
-      <h2 class="text-2xl font-bold mb-4">项目经历</h2>
-      <ul class="space-y-4 text-sm">
-        <li><strong>D7 product - Clearstream (2024.10 - 2025.06):</strong> 接口测试，UI 自动化，数据库校验，OpenShift Log 分析</li>
-        <li><strong>RulesEnginee (2024.03 - 2024.09):</strong> 规则引擎system </li>
-        <li><strong>Configuration Payment Auto Release (2023.12 - 2024.02):</strong> IPA Payment Auto Release</li>
-        <li><strong>Auto Create Instrument (2023.09 - 2023.11):</strong> instrument auto complete </li>
-        <li><strong>Issuer Profile + Global Note Auto Attach (2023.06 - 2023.08):</strong> Issuer 配置和 文件auto Attach</li>
-        <li><strong>COMPS (2022.07 - 2023.03):</strong> 贷款Deal管理，UI 自动化覆盖85%+</li>
-      </ul>
-    </section>
+            <div class="memory-card">
+                <div class="memory-content">
+                    <div class="memory-text">
+                        <h3>一起看比赛</h3>
+                        <p>Watching football Together</p>
+                    </div>
+                </div>
+                <div class="photo-placeholder bg-gradient-3">
+                    <span class="emoji-decoration" style="top: 10px; left: 15px;">🎮</span>
+                    <span class="emoji-decoration" style="bottom: 10px; right: 10px;">🏆</span>
+                    <div style="position: relative; width: 320px; height: 320px;">
+                        <img src="images/football.jpg"
+                            style="width: 100%; height: 100%; border-radius: 20px; object-fit: cover; box-shadow: 0 15px 40px rgba(0,0,0,0.4);">
+                    </div>
+                </div>
+            </div>
 
-    <section id="work" class="mb-10">
-      <h2 class="text-2xl font-bold mb-4">工作经历</h2>
-      <ul class="space-y-3 text-sm">
-        <li><strong>华钦信息 - QA 自动化测试 (2023.06 - 2025.06):</strong> Behave+Selenium ， K6+Javascript 性能测试</li>
-        <li><strong>奥解思信息 - QA 自动化测试 (2022.07 - 2023.03):</strong> Cypress+Cucumber 自动化脚本</li>
-        <li><strong>远涛技术 - 自动化测试 (2021.09 - 2022.07):</strong> PRD分析、python+pytest API测试</li>
-      </ul>
-    </section>
+            <div class="memory-card">
+                <div class="memory-content">
+                    <!-- <span class="date-badge">2024年7月 · 夏日狂欢</span> -->
+                    <div class="memory-text">
+                        <h3>Go to a concert together</h3>
+                        <p>一起看演唱会和音乐剧</p>
+                    </div>
+                </div>
+                <div class="photo-placeholder bg-gradient-4">
+                    <span class="emoji-decoration" style="top: 12px; right: 12px;">🌊</span>
+                    <span class="emoji-decoration" style="bottom: 12px; left: 12px;">☀️</span>
+                    <div style="position: relative; width: 320px; height: 320px;">
+                        <img src="images/concert.jpg"
+                            style="width: 100%; height: 100%; border-radius: 20px; object-fit: cover; box-shadow: 0 15px 40px rgba(0,0,0,0.4);">
+                    </div>
+                </div>
+            </div>
 
-    <section id="education">
-      <h2 class="text-2xl font-bold mb-4">教育背景</h2>
-      <ul class="text-sm space-y-2">
-        <li><strong>上海电力大学</strong> - 本科 (2013.09 - 2017.06)</li>
-        <li><strong>University of Leeds</strong> - Coursea 认证 软件测试工程师，<a href="Leeds-Certificate.pdf" download
-            class="text-blue-600 hover:underline">点击下载结业证书</a></li>
-      </ul>
-    </section>
-  </div>
+            <div class="memory-card">
+                <div class="memory-content">
+                    <div class="memory-text">
+                        <h3>go to an exhibition together</h3>
+                        <p>一起看展</p>
+                    </div>
+                </div>
+                <div class="photo-placeholder bg-gradient-5">
+                    <span class="emoji-decoration" style="top: 10px; left: 10px;">🤪</span>
+                    <span class="emoji-decoration" style="bottom: 10px; right: 10px;">😆</span>
+                    <div style="position: relative; width: 320px; height: 320px;">
+                        <img src="images/exhibition.jpg"
+                            style="width: 100%; height: 100%; border-radius: 20px; object-fit: cover; box-shadow: 0 15px 40px rgba(0,0,0,0.4);">
+                    </div>
+                </div>
+            </div>
+
+            <div class="memory-card">
+                <div class="memory-content">
+                    <span class="date-badge">We’ve been together for a year.</span>
+                    <div class="memory-text">
+                        <h3>期待2026</h3>
+                        <p></p>
+                    </div>
+                </div>
+                <div class="photo-placeholder bg-gradient-6">
+                    <span class="emoji-decoration" style="top: 15px; right: 10px;">🎊</span>
+                    <span class="emoji-decoration" style="bottom: 15px; left: 10px;">🎈</span>
+                    <div style="position: relative; width: 320px; height: 320px;">
+                        <img src="images/happy.jpg"
+                            style="width: 100%; height: 100%; border-radius: 20px; object-fit: cover; box-shadow: 0 15px 40px rgba(0,0,0,0.4);">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <h2>My stats</h2>
+            <div class="stats">
+
+                <div class="stat-item">
+                    <div class="stat-number">100%</div>
+                    <div class="stat-label">Happiness index</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 创建动态粒子背景
+        const particlesContainer = document.getElementById('particles');
+        for (let i = 0; i < 50; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 15 + 's';
+            particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+            particlesContainer.appendChild(particle);
+        }
+    </script>
 </body>
+
+</html>
